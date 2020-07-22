@@ -1,0 +1,68 @@
+<!--
+ * @Brief: container 容器
+ * @LastEditors: Jerry Lee
+ * @LastEditTime: 2020-07-22 11:47:30
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="bootstrap-3.3.7-dist/css/bootstrap.min.css"
+        />
+        <title>Document</title>
+        <style>
+            /* 流体容器 */
+            .container-fluid {
+                background-color: #bfa;
+            }
+
+            /* 固定容器 */
+            .container {
+                background-color: pink;
+            }
+            div[class|="col"] {
+                border: 1px solid;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div class="container-fluid">test</div> -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-md-5 col-sm-6 col-xs-8">
+                    aaa
+                </div>
+                <div class="col-lg-2 col-md-7 col-sm-6 col-xs-4">
+                    bbb
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">col-lg-6</div>
+                <div class="col-lg-6">col-lg-6</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">col-lg-4</div>
+                <div class="col-lg-8">col-lg-8</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1">col-lg-1</div>
+                <div class="col-lg-1">col-lg-1</div>
+                <div class="col-lg-1">col-lg-1</div>
+                <div class="col-lg-1">col-lg-1</div>
+                <div class="col-lg-1">col-lg-1</div>
+                <div class="col-lg-1">col-lg-1</div>
+                <div class="col-lg-1">col-lg-1</div>
+                <div class="col-lg-1">col-lg-1</div>
+                <div class="col-lg-1">col-lg-1</div>
+                <div class="col-lg-1">col-lg-1</div>
+                <div class="col-lg-1">col-lg-1</div>
+                <div class="col-lg-1">col-lg-1</div>
+            </div>
+        </div>
+    </body>
+    <script src="bootstrap-3.3.7-dist/js/jquery-1.12.4.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</html>

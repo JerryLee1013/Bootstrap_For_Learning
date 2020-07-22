@@ -1,0 +1,143 @@
+// Framework grid generation
+//列第一步
+// Used only by Bootstrap to generate the correct number of grid classes given
+// any value of `@grid-columns`.
+.make-grid-columns() {
+    // Common styles for all sizes of grid columns, widths 1-12
+    // 创造第2栅格
+    .col(@index) {
+        // initial
+        @item: ~".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
+        .col((@index + 1), @item);
+        // .col(2,".col-xs-1, .col-sm-1, .col-md-1, .col-lg-1");
+    }
+    //创建第3~12栅格
+    .col(@index, @list) when (@index =< @grid-columns) {
+        // general; "=<" isn't a typo
+        @item: ~".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
+        .col((@index + 1), ~"@{list}, @{item}");
+        // .col(3,".col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,.col-xs-2, .col-sm-2, .col-md-2, .col-lg-2");
+        // .col(4,".col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,.col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3");
+        //  .......
+        // .col(12,".col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,.col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, ....,.col-xs-11,.col-sm-11, .col-md-11, .col-lg-11");
+        // .col(13,".col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,.col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, ....,.col-xs-12,.col-sm-12, .col-md-12, .col-lg-12");
+    }
+
+    // .col(13,".col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,.col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, ....,.col-xs-12,.col-sm-12, .col-md-12, .col-lg-12");
+    // 设置12个栅格的通用布局样式，开启relative定位
+    .col(@index, @list) when (@index > @grid-columns) {
+        // terminal
+        //.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,.col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, ....,.col-xs-12,.col-sm-12, .col-md-12, .col-lg-12
+        @{list} {
+            position: relative;
+            // Prevent columns from collapsing when empty
+            min-height: 1px;
+            // Inner gutter via padding
+            padding-left: ceil((@grid-gutter-width / 2)); //15px
+            padding-right: floor((@grid-gutter-width / 2)); //15px
+        }
+    }
+    // 第1栅格
+    .col(1); // kickstart it
+}
+
+// 以xs为例
+.float-grid-columns(@class) {
+    // 第2个xs栅格
+    .col(@index) {
+        // initial
+        @item: ~".col-@{class}-@{index}";
+        .col((@index + 1), @item);
+        // .col(2,"col-xs-1");
+    }
+    // 第3~12个xs栅格
+    .col(@index, @list) when (@index =< @grid-columns) {
+        // general
+        @item: ~".col-@{class}-@{index}";
+        .col((@index + 1), ~"@{list}, @{item}");
+        // .col(3,"col-xs-1,col-xs-2");
+        // .....
+        // .col(13,"col-xs-1,col-xs-2,.....,col-xs-12");
+    }
+    //设置xs的float
+    .col(@index, @list) when (@index > @grid-columns) {
+        // terminal
+        // @list:"col-xs-1,col-xs-2,.....,col-xs-12";
+        @{list} {
+            float: left;
+        }
+    }
+    // 第一个xs栅格
+    .col(1); // kickstart it
+}
+
+// 以xs，width为例
+//  .calc-grid-column(12,xs,width);     .calc-grid-column(11,xs,width);   ......  .calc-grid-column(1,xs,width);    .calc-grid-column(0,xs,width);
+.calc-grid-column(@index, @class, @type) when (@type = width) and (@index > 0) {
+    .col-@{class}-@{index} {
+        // 设置1~12栅格的宽度根据栅格索引值的变化而变化，占据12个栅格的index/12份。
+        width: percentage((@index / @grid-columns));
+    }
+}
+.calc-grid-column(@index, @class, @type) when (@type = push) and (@index > 0) {
+    .col-@{class}-push-@{index} {
+        // 设置1~12栅格position的左边位置，根据index的变化而变化
+        left: percentage((@index / @grid-columns));
+    }
+}
+.calc-grid-column(@index, @class, @type) when (@type = push) and (@index = 0) {
+    .col-@{class}-push-0 {
+        // 设置index为0时，left的值为auto
+        left: auto;
+    }
+}
+.calc-grid-column(@index, @class, @type) when (@type = pull) and (@index > 0) {
+    .col-@{class}-pull-@{index} {
+        // 设置1~12栅格position的右边位置，根据index的变化而变化
+        right: percentage((@index / @grid-columns));
+    }
+}
+.calc-grid-column(@index, @class, @type) when (@type = pull) and (@index = 0) {
+    .col-@{class}-pull-0 {
+        // 设置index为0时，right的值为auto
+        right: auto;
+    }
+}
+.calc-grid-column(@index, @class, @type) when (@type = offset) {
+    .col-@{class}-offset-@{index} {
+        // 设置0-12栅格的margin--left为index/12
+        margin-left: percentage((@index / @grid-columns));
+    }
+}
+
+// Basic looping in LESS
+// 以xs为例
+.loop-grid-columns(@index, @class, @type) when (@index >= 0) {
+    .calc-grid-column(@index, @class, @type);
+    // next iteration
+    .loop-grid-columns((@index - 1), @class, @type);
+
+    //  .calc-grid-column(12,xs,width);     .calc-grid-column(11,xs,width);   ......  .calc-grid-column(1,xs,width);    .calc-grid-column(0,xs,width);
+    //  .loop-grid-columns(11,xs,width);    .loop-grid-columns(10,xs,width);  ......  .loop-grid-columns(0,xs,width);   .loop-grid-columns(-1,xs,width);
+}
+
+// Create grid for specific class
+// 列第二部
+.make-grid(@class) {
+    //开启栅格的float属性
+    //2.1
+    .float-grid-columns(@class);
+
+    //设置widh的宽度根据index值的变化而变化，width为index/12
+    // 2.2
+    .loop-grid-columns(@grid-columns, @class, width);
+    // 2.3
+    // 设置栅格position的右边位置，根据index的变化而变化
+    .loop-grid-columns(@grid-columns, @class, pull);
+    // 2.4
+    // 设置栅格position的偏移量根据index的变化而变化
+    .loop-grid-columns(@grid-columns, @class, push);
+    // 2.5
+    // 设置栅格margin-left根据index的变化而变化
+    .loop-grid-columns(@grid-columns, @class, offset);
+}
