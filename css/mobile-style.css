@@ -1,0 +1,6 @@
+.container .row div[class|="col"] {
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+}
+img {
+    width: 100%;
+}

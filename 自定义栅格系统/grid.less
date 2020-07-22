@@ -1,0 +1,97 @@
+//
+// Grid system
+// --------------------------------------------------
+
+// Container widths
+//
+// Set the container width, and override it for fixed navbars in media queries.
+
+// 固定容器
+.container {
+    // 公共样式
+    .container-fixed();
+    // @screen-sm :
+    // @screen-sm-min:              @screen-sm;
+    @media (min-width: @screen-sm-min) {
+        // @container-tablet: (720px + @grid-gutter-width);
+        // @container-sm: @container-tablet;    768px;
+        width: @container-sm;
+    }
+
+    // @screen-md:                  992px;
+    // @screen-md-min:              @screen-md;
+    @media (min-width: @screen-md-min) {
+        // @container-desktop: (940px + @grid-gutter-width);
+        // @container-md: @container-desktop;   970px
+        width: @container-md;
+    }
+
+    // @screen-lg:                  1200px;
+    // @screen-lg-min:              @screen-lg;
+    @media (min-width: @screen-lg-min) {
+        // @container-large-desktop: (1140px + @grid-gutter-width);
+        // @container-lg: @container-large-desktop;   1170px
+        width: @container-lg;
+    }
+}
+
+// Fluid container
+//
+// Utilizes the mixin meant for fixed width containers, but without any defined
+// width for fluid, full width layouts.
+
+// 流体容器
+.container-fluid {
+    .container-fixed();
+}
+
+// Row行
+//
+// Rows contain and clear the floats of your columns.
+
+.row {
+    // .make-row(@gutter: @grid-gutter-width) { // @grid-gutter-width30px
+    //     margin-left: ceil((@gutter / -2));   //-15px
+    //     margin-right: floor((@gutter / -2)); //-15px
+    //     &:extend(.clearfix all);             //清除浮动
+    // }
+    .make-row();
+}
+
+// Columns列
+//
+// Common styles for small and large grid columns
+// grid-framework.less
+.make-grid-columns();
+
+// Extra small grid 移动手机
+//
+// Columns, offsets, pushes, and pulls for extra small devices like
+// smartphones.
+
+.make-grid(xs);
+
+// Small grid 平板
+//
+// Columns, offsets, pushes, and pulls for the small device range, from phones
+// to tablets.
+
+@media (min-width: @screen-sm-min) {
+    .make-grid(sm);
+}
+
+// Medium grid  中屏PC
+//
+// Columns, offsets, pushes, and pulls for the desktop device range.
+
+@media (min-width: @screen-md-min) {
+    .make-grid(md);
+}
+
+// Large grid 大屏PC
+//
+// Columns, offsets, pushes, and pulls for the large desktop device range.
+
+@media (min-width: @screen-lg-min) {
+    .make-grid(lg);
+}

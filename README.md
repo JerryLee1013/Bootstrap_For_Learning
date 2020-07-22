@@ -1,7 +1,7 @@
 <!--
  * @Brief:Bootstrap Learning
  * @LastEditors: Jerry Lee
- * @LastEditTime: 2020-07-22 12:03:35
+ * @LastEditTime: 2020-07-22 19:19:51
 -->
 
 # Bootstrap_For_Learning
@@ -164,3 +164,43 @@ Bootstrap 提供了一套响应式、移动设备优先的流式栅格系统，�
                                         //.loop-grid-columns(@grid-columns, @class, offset);
                                         margin-left: percentage((@index / @grid-columns));
                                 }
+
+###Bootstrap 实例的运用
+
+        在 bootstrap 组件中找到需要的组件，复制代码。
+
+###自定义栅格系统
+
+        从源码中复制下列文件到自定义系统文件夹
+                mixin/clear.less
+                mixin/grid.ess
+                mixin/grid-framework.less
+                grid.less
+                variables.less
+        在系统文件夹新建.less文件，将上述文件引入：
+        写：
+                @import "grid.less";
+                @import "variables.less";
+                @import "mixin/grid.less";
+                @import "mixin/grid-framework.less";
+                @import "mixin/clearfix.less";
+                @import "mixin/grid-framework.less";
+        编译成css文件。
+        用法和原bootstrap栅格系统一致。
+
+###响应式工具：
+
+        引入以下两个文件
+        mixin/responsive-visibility.less
+        responsive-utilities.less
+
+###栅格盒模型设计的精妙之处
+
+        容器    上两边具有15px的padding
+        行      两边具有-15px的margin
+        列      两边具有15px的padding
+
+        为了维护槽宽的规则：
+                列两边必须要右15px的padding
+                为了能使列嵌套行，行两边必须有-15px的margin
+                为了能使容器包裹行，容器两边必须有15px的padding
